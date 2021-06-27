@@ -19,6 +19,9 @@ import {
   
     @Column()
     password: string;
+
+    @Column({default:false})
+    authorize: boolean;
   
     @Column()
     @CreateDateColumn()

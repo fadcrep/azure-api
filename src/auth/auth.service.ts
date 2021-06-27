@@ -19,7 +19,10 @@ export class AuthService {
       userId: user.id,
     };
 
+    delete user.password;
+
     return {
+      user,
       access_token: this.jwtService.sign(payload),
     };
   }
