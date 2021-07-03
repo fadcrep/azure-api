@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import ormconfig = require('./ormconfig');
 import { typeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
+import { VmModule } from './vm/vm.module';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true
     }),
     UsersModule,
-    AuthModule
+    AuthModule,
+    VmModule
   ],
   controllers: [AppController],
   providers: [AppService],
