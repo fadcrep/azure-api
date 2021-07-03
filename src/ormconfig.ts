@@ -13,11 +13,12 @@ import { ConnectionOptions } from 'typeorm';
 const config: ConnectionOptions = {
 
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'fadcrepin',
-  password: 'jsldfdmp',
-  database: 'azure',
+  url: process.env.DATABASE_URL,
+  // host: 'localhost',
+  // port: 5432,
+  // username: 'fadcrepin',
+  // password: 'jsldfdmp',
+  // database: 'azure',
   entities: ['dist/**/*.entity.js'],
 //   ssl: false,
 //   extra: {
