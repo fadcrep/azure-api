@@ -35,6 +35,11 @@ const config: ConnectionOptions = {
   migrationsRun: false,
   logging: true,
   logger: 'file',
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 
   // Allow both start:prod and start:dev to use migrations
   // __dirname is either dist or src folder, meaning either
