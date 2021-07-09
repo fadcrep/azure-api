@@ -16,23 +16,18 @@ export class VmService {
     computeClient;
     storageClient: string;
     networkClient: string;
-    resourceGroupName= 'game-tourelle_group';
-    vmName: 'game-tourelle';
-    clientId = 'd70845f4-38b5-4139-b60b-8332f085ba65';
-    domain = 'b7b023b8-7c32-4c02-92a6-c8cdaa1d189c';
-    secret ='07minJamj6lgRcMK~5GcoF~2WmGsggqgO~';
-    subscriptionId = 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac';
 
 
 
-    async powerOffVm(){
+
+    async powerOffVm() {
            var that= this;
         msRestAzure.loginWithServicePrincipalSecret(this.clientId, this.secret, this.domain, function (err, credentials, subscriptions) {
             if (err) return console.log(err);
-            that.resourceClient = new ResourceManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-            that.computeClient = new ComputeManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-            that.storageClient = new StorageManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-            that.networkClient = new NetworkManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
+            that.resourceClient = new ResourceManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+            that.computeClient = new ComputeManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+            that.storageClient = new StorageManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+            that.networkClient = new NetworkManagementClient(credentials, process.env.SUBSCRIPTION_ID);
 
             async.series([
                 function (callback) {
@@ -40,7 +35,7 @@ export class VmService {
                     //Task3: Poweroff the VM.//
                     ///////////////////////////
                     console.log('\n>>>>>>>Start of Task3: Poweroff the VM: ' + 'game-tourelle');
-                    that.computeClient.virtualMachines.powerOff('game-tourelle_group', 'game-tourelle', function (err, result) {
+                    that.computeClient.virtualMachines.powerOff(process.env.RESOURCE_GROUP_NAME, process.env.VM_NAME, function (err, result) {
                       if (err) {
                         console.log(util.format('\n???????Error in Task3: while powering off the VM:\n%s', 
                           util.inspect(err, { depth: null })));
@@ -48,7 +43,8 @@ export class VmService {
                       } else {
                         console.log(util.format('\n######End of Task3: Poweroff the VM is successful.\n%s', 
                           util.inspect(result, { depth: null })));
-                        callback(null, result);
+                          
+                        return callback(null, result);
                       }
                     });
                   }
@@ -62,18 +58,18 @@ export class VmService {
         var that= this;
      msRestAzure.loginWithServicePrincipalSecret(this.clientId, this.secret, this.domain, function (err, credentials, subscriptions) {
          if (err) return console.log(err);
-         that.resourceClient = new ResourceManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-         that.computeClient = new ComputeManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-         that.storageClient = new StorageManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
-         that.networkClient = new NetworkManagementClient(credentials, 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac');
+         that.resourceClient = new ResourceManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+         that.computeClient = new ComputeManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+         that.storageClient = new StorageManagementClient(credentials, process.env.SUBSCRIPTION_ID);
+         that.networkClient = new NetworkManagementClient(credentials, process.env.SUBSCRIPTION_ID);
 
          async.series([
              function (callback) {
                  ///////////////////////////
                  //Task3: start the VM.//
                  ///////////////////////////
-                 console.log('\n>>>>>>>Start of Task3: start the VM: ' + 'game-tourelle');
-                 that.computeClient.virtualMachines.start('game-tourelle_group', 'game-tourelle', function (err, result) {
+                 console.log('\n>>>>>>>Start of Task3: start the VM: ' + process.env.VM_NAME);
+                 that.computeClient.virtualMachines.start(process.env.RESOURCE_GROUP_NAME, process.env.VM_NAME, function (err, result) {
                    if (err) {
                     console.log(util.format('\n???????Error in Task4: while starting the VM:\n%s', 
                        util.inspect(err, { depth: null })));
