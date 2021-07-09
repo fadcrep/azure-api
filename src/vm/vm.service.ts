@@ -16,12 +16,7 @@ export class VmService {
     computeClient;
     storageClient: string;
     networkClient: string;
-    resourceGroupName= 'game-tourelle_group';
-    vmName= 'game-tourelle';
-    clientId = 'd70845f4-38b5-4139-b60b-8332f085ba65';
-    domain = 'b7b023b8-7c32-4c02-92a6-c8cdaa1d189c';
-    secret ='07minJamj6lgRcMK~5GcoF~2WmGsggqgO~';
-    subscriptionId = 'a7825e15-8cf3-4b76-826f-dc8e2adc89ac';
+
 
 
 
