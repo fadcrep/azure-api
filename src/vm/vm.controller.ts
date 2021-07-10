@@ -1,6 +1,7 @@
-import { Post } from '@nestjs/common';
+import { Post, Res } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { VmService } from './vm.service';
+import { Response } from 'express';
 
 @Controller('vm')
 export class VmController {
@@ -8,13 +9,16 @@ export class VmController {
 
 
   @Post('stop')
-  powerOffVm(){
+  powerOffVm(@Res() res: Response){
     this.vmService.powerOffVm();
+    res.json("Vm stopped");
   }
 
+  
   @Post('start')
-  startVm(){
+  startVm(@Res() res: Response){
     this.vmService.startVm();
+    res.json("Vm started");
   }
   
 
