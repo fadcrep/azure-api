@@ -54,9 +54,10 @@ export class VmService {
 
 
 
-    async startVm(){
-        var that= this;
-     msRestAzure.loginWithServicePrincipalSecret(process.env.CLIENT_ID, process.env.SECRET, process.env.DOMAIN, function (err, credentials, subscriptions) {
+    async startVm() : Promise<Object>{
+     var that= this;
+     var mystartVm ;
+     msRestAzure.loginWithServicePrincipalSecret(process.env.CLIENT_ID, process.env.SECRET, process.env.DOMAIN,function (err, credentials, subscriptions) {
          if (err) return console.log(err);
          that.resourceClient = new ResourceManagementClient(credentials, process.env.SUBSCRIPTION_ID);
          that.computeClient = new ComputeManagementClient(credentials, process.env.SUBSCRIPTION_ID);
@@ -77,12 +78,14 @@ export class VmService {
                    } else {
                     console.log(util.format('\n######End of Task4: Start the VM is successful.\n%s',  
                        util.inspect(result, { depth: null })));
-                     callback(null, result);
+                       mystartVm = callback(null, result);
                    }
                  });
                }
          ]);
      });
+
+     return mystartVm;
  }
 
 
